@@ -26,13 +26,7 @@ public class MyJavaFxDemo extends Application {
         primaryStage.setTitle("Title of the window");
         button=new Button();
         button.setText("Click Me");
-        button.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent t) {
-                System.out.println("testing inner classes");
-            }
-        });
+        button.setOnAction(e->System.out.println("Using lambda Expression"));
          
         StackPane layout=new StackPane();
         layout.getChildren().add(button);
@@ -46,10 +40,4 @@ public class MyJavaFxDemo extends Application {
     }
 
    
-    
-    
-    
-    
-    
-    
 }
