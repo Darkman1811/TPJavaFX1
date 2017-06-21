@@ -27,7 +27,10 @@ public class MyJavaFxDemo extends Application {
         primaryStage.setTitle("Title of the window");
         button=new Button();
         button.setText("Click Me");
-        button.setOnAction(e->AlertBox.display("Alert", "What do you think"));
+        button.setOnAction(e->{
+            boolean result=ConfirmBox.display("Question", "Are you sure you wana do this?");
+            System.out.println(result);
+                });
         
          
         StackPane layout=new StackPane();
