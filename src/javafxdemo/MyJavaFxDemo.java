@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author super
  */
-public class MyJavaFxDemo extends Application implements EventHandler<ActionEvent>{
+public class MyJavaFxDemo extends Application {
     Button button;
     public static void main(String[] args){
         launch(args);
@@ -26,7 +26,13 @@ public class MyJavaFxDemo extends Application implements EventHandler<ActionEven
         primaryStage.setTitle("Title of the window");
         button=new Button();
         button.setText("Click Me");
-        button.setOnAction(this);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+                System.out.println("testing inner classes");
+            }
+        });
          
         StackPane layout=new StackPane();
         layout.getChildren().add(button);
@@ -39,12 +45,8 @@ public class MyJavaFxDemo extends Application implements EventHandler<ActionEven
         
     }
 
-    @Override
-    public void handle(ActionEvent event) {
-       if(event.getSource()==button){
-        System.out.println("test");
-       }
-    }
+   
+    
     
     
     
