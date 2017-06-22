@@ -17,31 +17,40 @@ import javafx.stage.Stage;
  * @author super
  */
 public class MyJavaFxDemo extends Application {
+    Stage window;
     Button button;
+    
     public static void main(String[] args){
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Title of the window");
+        window=primaryStage;
+        window.setTitle("Title of the window");
         button=new Button();
-        button.setText("Click Me");
-        button.setOnAction(e->{
-            boolean result=ConfirmBox.display("Question", "Are you sure you wana do this?");
-            System.out.println(result);
-                });
-        
+        button.setText("Close Program");
+       button.setOnAction(e->closeProgram());
          
         StackPane layout=new StackPane();
         layout.getChildren().add(button);
         
         Scene scene= new Scene(layout,300,250);
         
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        window.setScene(scene);
+        window.setOnCloseRequest(e->{
+            e.consume();
+            closeProgram();
+                    });
+        window.show();
         
         
+    }
+
+    private void closeProgram() {
+        Boolean answer=ConfirmBox.display("Confirm close", "Are you sure you want to close?");
+        if (answer){ window.close();}
+               
     }
 
     
