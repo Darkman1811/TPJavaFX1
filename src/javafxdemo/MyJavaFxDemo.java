@@ -22,11 +22,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -100,10 +102,20 @@ public class MyJavaFxDemo extends Application {
         autoSave.setSelected(true);
         helpMenu.getItems().add(autoSave);
         
+        //Difficulty Radio menu Items
+        Menu difficultyMenu=new Menu("Difficulty");
+        ToggleGroup difficultyToggle=new ToggleGroup();
+        RadioMenuItem easy=new  RadioMenuItem("Easy");
+        RadioMenuItem medium=new  RadioMenuItem("Medium");
+        RadioMenuItem hard=new  RadioMenuItem("Hard");
+        easy.setToggleGroup(difficultyToggle);
+        medium.setToggleGroup(difficultyToggle);
+        hard.setToggleGroup(difficultyToggle);
+        difficultyMenu.getItems().addAll(easy,medium,hard);
         
         //Main menu bar
         MenuBar menuBar= new MenuBar();
-        menuBar.getMenus().addAll(fileMenu,editMenu,helpMenu);
+        menuBar.getMenus().addAll(fileMenu,editMenu,helpMenu,difficultyMenu);
         
         layout = new BorderPane();
         layout.setTop(menuBar);
