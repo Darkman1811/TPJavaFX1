@@ -15,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -80,11 +81,29 @@ public class MyJavaFxDemo extends Application {
         MenuItem paste=new MenuItem("Paste");
         paste.setOnAction(e->System.out.println("Paste some crap"));
         paste.setDisable(true);
-        editMenu.getItems().add(paste);   
+        editMenu.getItems().add(paste);  
+        
+           //Edit Menu
+        Menu helpMenu=new Menu("_help");
+        CheckMenuItem showLines= new CheckMenuItem("Show Lines Numbers");
+        showLines.setOnAction(e->{
+            if(showLines.isSelected()){
+                System.out.println("Program will now display line numbers");
+            }
+            else{
+                System.out.println("Hidding the line numbers");
+            }
+        });
+        helpMenu.getItems().addAll(showLines);
+        
+        CheckMenuItem autoSave=new CheckMenuItem("Enable Autosave");
+        autoSave.setSelected(true);
+        helpMenu.getItems().add(autoSave);
+        
         
         //Main menu bar
         MenuBar menuBar= new MenuBar();
-        menuBar.getMenus().addAll(fileMenu,editMenu);
+        menuBar.getMenus().addAll(fileMenu,editMenu,helpMenu);
         
         layout = new BorderPane();
         layout.setTop(menuBar);
