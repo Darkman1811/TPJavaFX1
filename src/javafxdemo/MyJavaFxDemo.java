@@ -40,8 +40,8 @@ public class MyJavaFxDemo extends Application {
 
     Stage window;
     Scene scene;
-    Button button;
     TableView<Product> table;
+    TextField nameInput,priceInput,quantityInput;
 
     public static void main(String[] args) {
         launch(args);
@@ -71,13 +71,37 @@ public class MyJavaFxDemo extends Application {
         table.setItems(getProduct());
         table.getColumns().addAll(nameColumn,priceColumn,quantityColumn);
         
-        button = new Button("Order now");
+        //Name Input
+        nameInput = new TextField();
+        nameInput.setPromptText("Name");
+        nameInput.setMinWidth(200);
+        
+        //Prince Input
+        priceInput = new TextField();
+        priceInput.setPromptText("Price");
+        priceInput.setMinWidth(100);
+        
+        //Quantity Input
+        quantityInput = new TextField();
+        quantityInput.setPromptText("Quatity");
+        quantityInput.setMinWidth(100);
+        
+        Button addButton = new Button("Add");
+        addButton.setOnAction(e->addButtonClicked());
+        
+        Button deleteButton = new Button("Delete");
+        deleteButton.setOnAction(e->deleteButtonClicked());
+        
+        HBox hBox=new HBox();
+        hBox.setPadding(new Insets(10, 10, 10, 10));
+        hBox.setSpacing(10);
+        hBox.getChildren().addAll(nameInput,priceInput,quantityInput,addButton,deleteButton);
 
         VBox layout = new VBox(10);
         layout.setPadding(new Insets(20, 20, 20, 20));
-        layout.getChildren().addAll(table, button);
+        layout.getChildren().addAll(table,hBox );
 
-        scene = new Scene(layout, 600, 400);
+        scene = new Scene(layout);
         window.setScene(scene);
         window.show();
 
@@ -93,5 +117,24 @@ public class MyJavaFxDemo extends Application {
       products.add(new Product("Corn",1.49,856));
       return products;
   }
+
+    private void addButtonClicked() {
+    //Product product=new Product(nameInput.getText(),Double.parseDouble(priceInput.getText()),Integer.parseInt(quantityInput.getText()));
+    Product product=new Product();
+    product.setName(nameInput.getText());
+    product.setPrice(Double.parseDouble(priceInput.getText()));
+    product.setQuantity(Integer.parseInt(quantityInput.getText()));
+    table.getItems().add(product);
+    nameInput.clear();
+    priceInput.clear();
+    quantityInput.clear();
+    }
+
+    private void deleteButtonClicked() {
+       ObservableList<Product> productSelected, allProducts;
+       allProducts=table.getItems();
+       productSelected=table.getSelectionModel().getSelectedItems();
+       productSelected.forEach(allProducts::remove);
+    }
 
 }
