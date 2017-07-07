@@ -7,18 +7,11 @@
 package javafxdemo;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 /**
  *
@@ -37,22 +30,20 @@ public class MyJavaFxDemo extends Application {
         window=primaryStage;
         window.setTitle("the new boston");
         
-        Personne bucky=new Personne();
-        bucky.firstNameProperty().addListener((v,oldValue,newValue)->{
-            System.out.println("Name changed from "+ oldValue);
-            System.out.println("Name changed to "+ newValue);
-            System.out.println("FirstNameProperty():"+ bucky.firstNameProperty());
-            System.out.println("getFirstName():"+ bucky.getFirstName());
-        });
+        IntegerProperty x = new SimpleIntegerProperty(3);
+        IntegerProperty y = new SimpleIntegerProperty();
+        
+        y.bind(x.multiply(10));
+        System.out.println("x:"+x.getValue());
+        System.out.println("y:"+y.getValue());
+        
+        x.setValue(9);
+        System.out.println("x:"+x.getValue());
+        System.out.println("y:"+y.getValue());
         
         button=new Button("Submit");
-        button.setOnAction(e->bucky.setFirstName("Porky"));
-        
-       Button button1=new Button("other");
-        button1.setOnAction(e->bucky.setFirstName("Noly"));
-        
-        HBox layout=new HBox();
-        layout.getChildren().addAll(button,button1);
+        StackPane layout=new StackPane();
+        layout.getChildren().add(button);
         Scene scene = new Scene(layout,300,200);        
         window.setScene(scene);      
         window.show();
