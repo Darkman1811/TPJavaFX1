@@ -9,9 +9,14 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 /**
  *
@@ -29,22 +34,21 @@ public class MyJavaFxDemo extends Application {
     public void start(Stage primaryStage) throws Exception {
         window=primaryStage;
         window.setTitle("the new boston");
+        //Input and labels
+        TextField userInput=new TextField();
+        userInput.setMaxWidth(200);
+        Label firstLabel= new Label("Welcom to the site ");
+        Label secondLabel=new Label();
         
-        IntegerProperty x = new SimpleIntegerProperty(3);
-        IntegerProperty y = new SimpleIntegerProperty();
+        HBox bottomText=new HBox(firstLabel,secondLabel);
+        bottomText.setAlignment(Pos.CENTER);
+      
+        VBox vbox=new VBox();
+        vbox.setAlignment(Pos.CENTER);
         
-        y.bind(x.multiply(10));
-        System.out.println("x:"+x.getValue());
-        System.out.println("y:"+y.getValue());
-        
-        x.setValue(9);
-        System.out.println("x:"+x.getValue());
-        System.out.println("y:"+y.getValue());
-        
-        button=new Button("Submit");
-        StackPane layout=new StackPane();
-        layout.getChildren().add(button);
-        Scene scene = new Scene(layout,300,200);        
+        secondLabel.textProperty().bind(userInput.textProperty());
+        vbox.getChildren().addAll(userInput,bottomText);
+        Scene scene = new Scene(vbox,300,200);        
         window.setScene(scene);      
         window.show();
         
