@@ -26,6 +26,7 @@ import javafx.stage.Stage;
  */
 public class MyJavaFxDemo extends Application {
     Stage window;
+    Button button;
     
     public static void main(String[] args){
         launch(args);
@@ -34,51 +35,26 @@ public class MyJavaFxDemo extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         window=primaryStage;
-        window.setTitle("Connection");
-        GridPane grid= new GridPane();
-        grid.setPadding(new Insets(10, 10, 10, 10));
-        grid.setVgap(8);
-        grid.setHgap(10);
+        window.setTitle("the new boston");
         
-        //Name label
-        Label nameLabel = new Label("Username:");
-        //nameLabel.setStyle("-fx-text-fill: #e8e8e8");
-        nameLabel.setId("bold-label");
-        GridPane.setConstraints(nameLabel, 0, 0);
-       
+        Personne bucky=new Personne();
+        bucky.firstNameProperty().addListener((v,oldValue,newValue)->{
+            System.out.println("Name changed from "+ oldValue);
+            System.out.println("Name changed to "+ newValue);
+            System.out.println("FirstNameProperty():"+ bucky.firstNameProperty());
+            System.out.println("getFirstName():"+ bucky.getFirstName());
+        });
         
-        //Name input
-        TextField nameInput= new TextField("Abdoulaye");
-        GridPane.setConstraints(nameInput, 1, 0);
+        button=new Button("Submit");
+        button.setOnAction(e->bucky.setFirstName("Porky"));
         
-          //Pass label
-        Label passLabel = new Label("Password:");
-        GridPane.setConstraints(passLabel, 0, 1);
+       Button button1=new Button("other");
+        button1.setOnAction(e->bucky.setFirstName("Noly"));
         
-        //Pass input
-        TextField passInput= new TextField();
-        passInput.setPromptText("password");
-        GridPane.setConstraints(passInput, 1, 1);
-        
-        //Login
-        Button loginButton=new Button("Log in");
-        GridPane.setConstraints(loginButton, 1, 2);
-        
-       /* loginButton.setOnAction(e->{
-            setUserAgentStylesheet(STYLESHEET_CASPIAN);
-        });*/
-        
-        //Signup 
-         Button signupButton=new Button("Sign Up");
-        GridPane.setConstraints(signupButton, 1, 3);
-        signupButton.getStyleClass().add("button-blue");
-        grid.getChildren().addAll(nameLabel,nameInput,passLabel,passInput,loginButton,signupButton);
-        
-        Scene scene = new Scene(grid,300,200);
-        scene.getStylesheets().add("javafxdemo/Viper.css");
-        
-        window.setScene(scene);
-      
+        HBox layout=new HBox();
+        layout.getChildren().addAll(button,button1);
+        Scene scene = new Scene(layout,300,200);        
+        window.setScene(scene);      
         window.show();
         
         
